@@ -419,8 +419,9 @@
           gameMode.textContent = `Your pen is generating random color by default \n But you can select your desire one from pen color`;
         }, 3000);
 
+        // mouseover on each box
         allSquires.forEach((item, index) =>
-          item.addEventListener("click", (event) => {
+          item.addEventListener("mouseenter", (event) => {
             // default random colors
             let rgbObject = {
               red: Math.floor(Math.random() * 255),
