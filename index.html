@@ -5,22 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style2.css" />
+    <title>Canva</title>
   </head>
   <body>
+    <h1 id="game-mode">Welcome user</h1>
     <main>
       <!-- menu items -->
+
       <section class="menu-items">
-        <button><input type="color" name="" id="" /> Pen Color</button>
+        <button><input type="color" name="" id="penColor" /> Pen Color</button>
+        <button id="randomColorMode">Random color mode</button>
         <button><input type="color" name="" id="" /> Background color</button>
-        <button>Color fill</button>
-        <button>Color grabber</button>
-        <button>Toggle Eraser</button>
-        <button>Toggle Rainbow</button>
-        <button>Toggle shading</button>
-        <button>Toggle Lighten</button>
-        <button><input type="range" name="" id="" /></button>
-        <button>Toggle grid</button>
-        <button>Clear</button>
       </section>
 
       <!-- Canva section -->
@@ -398,19 +393,59 @@
 
       <!-- javascript -->
       <script>
+        // selecting color mode alert
+        const gameMode = document.querySelector("#game-mode");
+        // console.log(gameMode);
+        // selecting all squires
         const allSquires = document.querySelectorAll(".row-1");
+        // selecting random color option
+        const randomColorMode = document.querySelector("#randomColorMode");
+        console.log(randomColorMode);
+        /// getting penInput
+        const penColor = document.getElementById("penColor");
+
+        let colorName = "";
+
+        // applying selected penColor to each selected box
+        penColor.addEventListener("input", function (e) {
+          console.log(e.target.value);
+          colorName = e.target.value;
+          gameMode.textContent = `Your picked color is : ${e.target.value}`;
+        });
+
+        // showing default behaviour
+        setTimeout(() => {
+          console.log("bro");
+          gameMode.textContent = `Your pen is generating random color by default \n But you can select your desire one from pen color`;
+        }, 3000);
 
         allSquires.forEach((item, index) =>
-          item.addEventListener("click", menuFunctions)
+          item.addEventListener("click", (event) => {
+            // default random colors
+            let rgbObject = {
+              red: Math.floor(Math.random() * 255),
+              green: Math.floor(Math.random() * 255),
+              blue: Math.floor(Math.random() * 255),
+            };
+
+            if (colorName.length === 0) {
+              eachSquireClick(event, rgbObject, colorName);
+            } else {
+              eachSquireClick(event, {}, colorName);
+            }
+          })
         );
 
-        function menuFunctions(e) {
-          let red = Math.floor(Math.random() * 100);
-          let green = Math.floor(Math.random() * 100);
-          let blue = Math.floor(Math.random() * 100);
+        function eachSquireClick(e, rgbObj, colorName) {
+          //by default changeBackground of each box when clicked on
+          e.target.style.background =
+            Object.keys(rgbObj).length === 0
+              ? `${colorName}`
+              : `rgb(${rgbObj.red}, ${rgbObj.green}, ${rgbObj.blue})`;
 
-          // changeBackground
-          this.style.background = `rgb(${red}, ${green}, ${blue})`;
+          console.log(e.target.style.background);
+
+          //change each squire bg due to selected
         }
       </script>
     </main>
