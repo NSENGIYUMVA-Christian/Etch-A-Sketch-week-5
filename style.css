@@ -13,6 +13,8 @@
     html{
         color:rgb(80, 77, 77);
         background: url(./assets/bg.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     
     h1{
